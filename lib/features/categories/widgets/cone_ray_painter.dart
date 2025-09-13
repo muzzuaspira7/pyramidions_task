@@ -23,7 +23,9 @@ class ConeRayPainter extends CustomPainter {
           ..style = PaintingStyle.stroke;
 
     for (int i = 0; i < buttonsCount; i++) {
-      final angle = 2 * pi * i / buttonsCount;
+      // final angle = 2 * pi * i / buttonsCount;
+      final angle = 2 * pi * i / buttonsCount - pi / 2;
+
       final direction = Offset(cos(angle), sin(angle));
       final perpendicular = Offset(-direction.dy, direction.dx);
 

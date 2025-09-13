@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pyramidions_task/core/utils/screen_utils.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../shared/widgets/loading_widget.dart';
 import '../view/circular_menu_widget.dart';
@@ -34,8 +33,7 @@ class CategoryScreen extends ConsumerWidget {
               () => ref.read(categoryViewModelProvider.notifier).reload(),
           child: categoriesState.when(
             loading: () => const LoadingWidget(),
-            error:
-                (e, st) => Center(
+            error:(e, st) => Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -58,25 +56,7 @@ class CategoryScreen extends ConsumerWidget {
                   ),
                 ),
             data: (categories) {
-              return Stack(
-                children: [
-                  CircularMenuWidget(categories: categories),
-                  if (categoriesState.hasError)
-                    Positioned(
-                      top: 50.h,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        color: Colors.orangeAccent,
-                        child: const Text(
-                          "You are offline, showing cached categories",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                ],
-              );
+              return CircularMenuWidget(categories: categories);
             },
           ),
         ),

@@ -1,11 +1,13 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:pyramidions_task/core/constants/app_colors.dart';
-import '../../../data/models/category_model.dart';
-import '../widgets/cone_ray_painter.dart';
-import '../widgets/category_item.dart';
+
 import '../../../core/constants/app_images.dart';
 import '../../../core/utils/screen_utils.dart';
+import '../../../data/models/category_model.dart';
+import '../widgets/category_item.dart';
+import '../widgets/cone_ray_painter.dart';
 
 class CircularMenuWidget extends StatefulWidget {
   // list of categories to show
@@ -68,7 +70,9 @@ class _CircularMenuWidgetState extends State<CircularMenuWidget>
 
   // calculate button order based on angles
   List<int> computeAnimationOrder(int count) {
-    final startAngle = -3 * pi / 4;
+    // final startAngle = -3 * pi / 4;
+    final startAngle = -pi / 6;
+
     final angles = List.generate(count, (i) => 2 * pi * i / count);
     final sorted =
         angles.asMap().entries.toList()..sort((a, b) {
@@ -122,7 +126,9 @@ class _CircularMenuWidgetState extends State<CircularMenuWidget>
               AnimatedBuilder(
                 animation: _animationController,
                 builder: (context, child) {
-                  final angle = 2 * pi * i / items.length;
+                  // final angle = 2 * pi * i / items.length;
+                  final angle = -2 * pi * i / items.length - pi / 2;
+
                   final targetOffset = Offset(
                     radius * cos(angle),
                     radius * sin(angle),
@@ -187,28 +193,22 @@ class _CircularMenuWidgetState extends State<CircularMenuWidget>
               ),
 
             // central home hub
-            GestureDetector(
-              onTap: () {
-                // home tapped
-                print("Home hub tapped");
-              },
-              child: Container(
-                width: hubSize,
-                height: hubSize,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [Color(0xFF7247E8), Color(0xFF48308C)],
-                  ),
+            Container(
+              width: hubSize,
+              height: hubSize,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [Color(0xFF7247E8), Color(0xFF48308C)],
                 ),
-                child: Center(
-                  child: Image.asset(
-                    AppImages.sticker,
-                    width: 0.18.sw,
-                    height: 0.18.sw,
-                  ),
+              ),
+              child: Center(
+                child: Image.asset(
+                  AppImages.sticker,
+                  width: 0.18.sw,
+                  height: 0.18.sw,
                 ),
               ),
             ),
